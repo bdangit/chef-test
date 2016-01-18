@@ -4,8 +4,7 @@ build:
         - leipert/add-ssh-key-gh-bb:
             keyname: WERCKER_GIT
         - install-packages:
-            packages: wget git tree
-        - print-dir-tree
+            packages: wget git
         - poppen/chefdk:
             version: 0.10.0
         - script:
@@ -14,6 +13,8 @@ build:
         - script:
             name: check version
             code: |
+              ls -al
+              ls -al /root/.ssh/
               chef exec gem install thor-scmversion
               chef exec thor 'version:current'
 deploy:
