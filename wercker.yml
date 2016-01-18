@@ -2,10 +2,13 @@ box: ubuntu:15.04
 build:
     steps:
         - install-packages:
-            packages: wget git
+            packages: wget git tree
         - print-dir-tree
         - poppen/chefdk:
             version: 0.10.0
+        - script:
+            name: check git config
+            code: git config --list
         - script:
             name: check version
             code: |
