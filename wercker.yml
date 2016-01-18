@@ -12,10 +12,10 @@ build:
             name: version
             code: |
               chef gem install thor-scmversion
-              thor list
-              thor 'version:current'
+              chef exec thor list
+              chef exec thor 'version:current'
     after-steps:
       - script:
           name: bump-version
           code: |
-            thor 'version:bump patch'
+            chef exec thor 'version:bump patch'
