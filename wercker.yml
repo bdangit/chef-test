@@ -6,7 +6,7 @@ build:
             code: |
               sudo apt-get update -y
               sudo apt-get install -y wget
-        - git-configure
+        - analogj/git-configure
         - poppen/chefdk:
             version: 0.10.0
         - script:
@@ -20,7 +20,7 @@ deploy:
           name: echo
           code: echo deploy stuff
     after-steps:
-      - git-configure
+      - analogj/git-configure
       - poppen/chefdk:
           version: 0.10.0
       - script:
