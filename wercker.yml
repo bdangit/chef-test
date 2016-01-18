@@ -10,10 +10,11 @@ build:
         - poppen/chefdk:
             version: 0.10.0
         - script:
-            name: version
+            name: bundle install
             code: |
-              chef gem install thor-scmversion
-              chef exec thor list
+              chef exec bundle install
+              git config --global user.email 'pleasemailus@wercker.com'
+              git config --global user.name  'werckerbot'
               chef exec thor 'version:current'
 deploy:
     steps:
