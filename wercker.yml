@@ -1,12 +1,9 @@
 box: ubuntu:15.04
 build:
     steps:
-        - script:
-            name: install wget
-            code: |
-              sudo apt-get update -y
-              sudo apt-get install -y wget
-        - analogj/git-configure
+        - install-packages:
+            packages: wget git
+        - print-dir-tree
         - poppen/chefdk:
             version: 0.10.0
         - script:
