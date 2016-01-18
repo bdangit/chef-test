@@ -2,19 +2,17 @@ box: ubuntu:15.04
 build:
     steps:
         - script:
-            name: install base sw
+            name: install wget
             code: |
               sudo apt-get update -y
               sudo apt-get install -y wget
-              sudo apt-get install -y git
+        - git-configure
         - poppen/chefdk:
             version: 0.10.0
         - script:
-            name: gem setup
+            name: check version
             code: |
               chef exec gem install thor-scmversion
-              git config --global user.email 'pleasemailus@wercker.com'
-              git config --global user.name  'werckerbot'
               chef exec thor 'version:current'
 deploy:
     steps:
@@ -22,8 +20,11 @@ deploy:
           name: echo
           code: echo deploy stuff
     after-steps:
-      - git-tag
-      # - script:
-      #    name: bump-version
-      #    code: |
-      #      chef exec thor 'version:bump patch'
+      - git-configure
+      - poppen/chefdk:
+          version: 0.10.0
+      - script:
+          name: bump version
+          code: |
+            chef exec gem install thor
+            chef exec thor 'version:bump patch'
