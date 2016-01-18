@@ -1,7 +1,7 @@
 box: ubuntu:15.04
 build:
     steps:
-        - leipert/add-ssh-key-gh-bb:
+        - add-ssh-key:
             keyname: WERCKER_GIT
         - install-packages:
             packages: wget git
