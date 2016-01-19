@@ -1,6 +1,8 @@
 box: ubuntu:15.04
 build:
     steps:
+        - add-to-known_hosts:
+            hostname: github.com
         - add-ssh-key:
             keyname: WERCKER_GIT
             host: github.com
@@ -17,6 +19,7 @@ build:
               git config --global user.name "wercker"
               git config --list
               git status
+              git pull
               chef exec gem install thor-scmversion
               chef exec thor 'version:current'
 deploy:
