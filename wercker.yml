@@ -28,6 +28,10 @@ deploy:
             name: echo
             code: echo deploy nothing. 
     github:
+        - script:
+            name: clone
+            code: |
+              git clone --depth=50 --quiet --progress --no-single-branch git@github.com:bdangit/chef-test.git ./
         - install-packages:
             packages: wget git openssh-client
         - add-to-known_hosts:
