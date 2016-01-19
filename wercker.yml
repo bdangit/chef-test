@@ -14,14 +14,13 @@ build:
         - poppen/chefdk:
             version: 0.10.0
         - script:
-            name: check git config
-            code: git config --list
-        - script:
             name: check version
             code: |
               ls -al
               ls -al /root/.ssh/
               cat /root/.ssh/config
+              git config --global user.email "pleasemailus@wercker.com"
+              git config --global user.name "wercker"
               chef exec gem install thor-scmversion
               chef exec thor 'version:current'
 deploy:
