@@ -1,22 +1,38 @@
 box: ubuntu:15.04
 build:
     steps:
-        - script:
-            name: install base sw
-            code: |
-              sudo apt-get update -y
-              sudo apt-get install -y wget
-              sudo apt-get install -y git
+        - install-packages:
+            packages: wget git openssh-client
+        - add-to-known_hosts:
+            hostname: github.com
+            fingerprint: 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+            type: rsa
+        - add-ssh-key:
+            keyname: WERCKER_GIT
+            host: github.com
         - poppen/chefdk:
             version: 0.10.0
         - script:
-            name: version
+            name: check version
             code: |
-              chef gem install thor-scmversion
-              chef exec thor list
+              ls -al /root/.ssh/
+              cat /root/.ssh/config
+              git config --global user.email "pleasemailus@wercker.com"
+              git config --global user.name "wercker"
+              git config --list
+              chef exec gem install thor-scmversion
               chef exec thor 'version:current'
-    after-steps:
+deploy:
+    steps:
       - script:
-          name: bump-version
+          name: echo
+          code: echo deploy stuff
+    after-steps:
+      - analogj/git-configure
+      - poppen/chefdk:
+          version: 0.10.0
+      - script:
+          name: bump version
           code: |
+            chef exec gem install thor
             chef exec thor 'version:bump patch'
