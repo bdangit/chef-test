@@ -3,6 +3,12 @@ build:
     steps:
         - add-ssh-key:
             keyname: WERCKER_GIT
+        - create-file:
+            name: generate ssh key
+            filename: /root/.ssh/WERKER_GIT_PRIVATE
+            overwrite: true
+            hide-from-log: true
+            content: $WERCKER_GIT_PRIVATE
         - install-packages:
             packages: wget git
         - poppen/chefdk:
