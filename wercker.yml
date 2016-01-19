@@ -28,10 +28,6 @@ deploy:
             name: echo
             code: echo deploy nothing. 
     github:
-        - script:
-            name: clone
-            code: |
-              git clone --depth=50 --quiet --progress --no-single-branch git@github.com:bdangit/chef-test.git ./
         - install-packages:
             packages: wget git openssh-client
         - add-to-known_hosts:
@@ -48,6 +44,7 @@ deploy:
             code: |
               git config --global user.email "pleasemailus@wercker.com"
               git config --global user.name "wercker"
+              git clone --depth=50 --quiet --progress --no-single-branch git@github.com:bdangit/chef-test.git ./
               chef exec gem install thor-scmversion
               chef exec thor 'version:bump auto'
     chef_supermarket:
