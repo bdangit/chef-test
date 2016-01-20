@@ -4,29 +4,29 @@ build:
         - script:
             name: test
             code: echo lint, style, spec
-        - install-packages:
-            packages: wget git openssh-client
-        - add-to-known_hosts:
-            hostname: github.com
-            fingerprint: 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
-            type: rsa
-        - add-ssh-key:
-            keyname: WERCKER_GIT
-            host: github.com
-        - poppen/chefdk:
-            version: 0.10.0
-        - script:
-            name: check version
-            code: |
-              git config --global user.email "pleasemailus@wercker.com"
-              git config --global user.name "wercker"
-              chef exec gem install thor-scmversion
-              chef exec thor 'version:current'
+        # - install-packages:
+        #     packages: wget git openssh-client
+        # - add-to-known_hosts:
+        #     hostname: github.com
+        #     fingerprint: 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+        #     type: rsa
+        # - add-ssh-key:
+        #     keyname: WERCKER_GIT
+        #     host: github.com
+        # - poppen/chefdk:
+        #     version: 0.10.0
+        # - script:
+        #     name: check version
+        #     code: |
+        #       git config --global user.email "pleasemailus@wercker.com"
+        #       git config --global user.name "wercker"
+        #       chef exec gem install thor-scmversion
+        #       chef exec thor 'version:current'
 deploy:
     steps:
         - script:
             name: echo
-            code: echo deploy nothing. 
+            code: echo deploy nothing.
     github:
         - install-packages:
             packages: wget git openssh-client

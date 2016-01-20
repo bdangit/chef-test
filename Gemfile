@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'thor-scmversion'
-
 group :integration do
   gem 'berkshelf'
   gem 'kitchen-vagrant'
