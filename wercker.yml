@@ -30,7 +30,9 @@ deploy:
     github:
         - script:
             name: get version from rake
-            code: export APP_VERSION=$(rake version)
+            code: |
+              export APP_VERSION=$(rake version)
+              echo $$APP_VERSION
         - github-create-release:
             token: $GITHUB_TOKEN
             tag: $APP_VERSION
