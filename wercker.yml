@@ -28,11 +28,15 @@ deploy:
             name: echo
             code: echo deploy nothing.
     github:
+        - install-packages:
+            packages: wget
+        - poppen/chefdk:
+            version: 0.10.0
         - script:
             name: get version from rake
             code: |
               export APP_VERSION=$(rake version)
-              echo $$APP_VERSION
+              echo $APP_VERSION
         - github-create-release:
             token: $GITHUB_TOKEN
             tag: $APP_VERSION
@@ -49,15 +53,13 @@ deploy:
         - poppen/chefdk:
             version: 0.10.0
         - script:
-            name: check version
+            name: setup stove
             code: |
               git config --global user.email "pleasemailus@wercker.com"
               git config --global user.name "wercker"
-              chef exec gem install thor-scmversion
-              chef exec thor 'version:current'
+              chef exec gem install stove
         - script:
             name: upload to chef
             code: |
               echo woof
-              ls -al
-              cat VERSION
+              chef exec stove --help
