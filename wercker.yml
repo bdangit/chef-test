@@ -29,7 +29,7 @@ deploy:
             code: echo deploy nothing.
     github:
         - install-packages:
-            packages: wget
+            packages: wget curl
         - poppen/chefdk:
             version: 0.10.0
         - script:
